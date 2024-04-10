@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Secured Audio Player</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script>
+        function updateKeyField() {
+            var chosenBit = document.getElementById("key");
+            var textlength = document.getElementById("keytext");
+            var selectedOption = chosenBit.options[chosenBit.selectedIndex];
+            textlength.maxLength = selectedOption.value;
+            textlength.value = "";
+            document.getElementById("keyWarning").innerText = "";
+        }
+
+        function validateForm() {
+            var textlength = document.getElementById("keytext");
+            var selectedOption = document.getElementById("key");
+            var max = parseInt(selectedOption.value);
+            var currentLength = textlength.value.length;
+
+            if (currentLength !== max) {
+                alert("Please input a key with exactly " + max + " characters.");
+                return false; // Prevent form submission
+            }
+
+            return true; // Allow form submission
+        }
+    </script>
+</head>
+
+<nav>
+    <h1>Secured Audio Player</h1>
+</nav>
+
+<body>
+<!-- <div class="container"> -->
+    <div class="upload-audio">
+        <input type="file" onchange="previewFile()" accept="audio/*"><br>
+    </div>
+
+    <form onsubmit="return validateForm()">
+        <div class="secret key">
+            <label for="keytext">Enter your key:</label><br>
+            <input type="textbox" id="keytext" placeholder=" " required onkeyup="checkKeyLength()">
+            
+        </div>
+        
+        <div class="key generator">
+            <label for="key">Choose Key Size:</label>
+            <select id="key" name="key" onchange="updateKeyField()" required>
+                <option value="16">AES-128</option>
+                <option value="24">AES-192</option>
+                <option value="32">AES-256</option>
+            </select>
+        </div>
+        
+        <div class="Function">
+            <input type="button" value="Encryption">
+            <input type="button" value="Decryption">
+        </div>
+        
+        <div class="audio-player">
+            <audio id="audio" controls>
+                Your browser does not support the audio element.
+            </audio>
+            <text>
+        </div>
+        
+       
+        <div class="download">
+            <a class="d1"> Download</a> 
+            <!-- <button id="download" role="button"> Download </button> -->
+        </div>
+      
+    </form> 
+<!-- </div>  -->
+    <script src="audio.js"></script>
+</body>
+</html>
+
+
